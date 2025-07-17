@@ -1,20 +1,8 @@
-const { Pool } = require('pg');
-require('dotenv').config();
+const bcrypt = require('bcrypt');
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-  family: 4
+const senha = '2023'; // a senha que você quer criptografar
+
+bcrypt.hash(senha, 10, function(err, hash) {
+  if (err) throw err;
+  console.log('Hash gerado:', hash);
 });
-
-
-async function testarConexao() {
-  try {
-    const res = await pool.query('SELECT NOW()');
-    console.log('Conexão OK:', res.rows[0]);
-  } catch (err) {
-    console.error('Erro de conexão:', err);
-  }
-}
-
-testarConexao();
