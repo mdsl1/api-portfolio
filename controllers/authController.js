@@ -11,12 +11,16 @@ const SUPABASE_API_KEY = process.env.SUPABASE_API_KEY;
 const headers = {
     'apikey': SUPABASE_API_KEY,
     'Authorization': `Bearer ${SUPABASE_API_KEY}`,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
 };
 
 // Cria a função que será exportada para o index.js
-exports.login = async (req, res) => {
-    const { login, senha } = req.body;
+exports.validarLogin = async (req, res) => {
+    const {
+        login,
+        senha
+    } = req.body;
 
     try {
         // Busca o usuário por login usando filtro do Supabase REST
