@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { inserirProjeto, listarProjetos } = require('../controllers/projetosController');
+const authAPI = require('../validators/authAPI');
 
-router.post('/', inserirProjeto);
-router.get('/', listarProjetos);
+const { inserirProjeto, listarProjetos } = require('../controllers/projetosController');
+const { validarProjeto } = require('../validators/projetosValidator');
+
+router.post('/', authAPI, validarProjeto, inserirProjeto);
+router.get('/',listarProjetos);
 
 module.exports = router;

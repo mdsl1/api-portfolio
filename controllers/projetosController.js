@@ -1,4 +1,6 @@
 const fetch = require('node-fetch');
+const { validationResult } = require('express-validator');
+const sanitizeHtml = require('sanitize-html');
 require('dotenv').config();
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
@@ -12,6 +14,12 @@ const headers = {
 };
 
 exports.inserirProjeto = async (req, res) => {
+
+    const erros = validationResult(req);
+    if (!erros.isEmpty()) {
+        return res.status(400).json({ erros: erros.array() });
+    }
+
     const {
         titulo,
         tipo,
@@ -23,20 +31,23 @@ exports.inserirProjeto = async (req, res) => {
         site_url
     } = req.body;
 
+    const dadosValidados = {
+        titulo: sanitizeHtml(titulo),
+        tipo: sanitizeHtml(tipo),
+        img: sanitizeHtml(img || ''),
+        descricao: sanitizeHtml(descricao),
+        tecnologia_ids,
+        adaptacao_ids,
+        github_url: sanitizeHtml(github_url || ''),
+        site_url: sanitizeHtml(site_url || '')
+    };
+
+
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/inserir_projeto`, {
             method: 'POST',
             headers,
-            body: JSON.stringify({
-                titulo,
-                tipo,
-                img,
-                descricao,
-                tecnologia_ids,
-                adaptacao_ids,
-                github_url,
-                site_url
-            })
+            body: JSON.stringify(dadosValidados)
         });
 
         if (!response.ok) {
