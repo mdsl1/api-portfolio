@@ -6,6 +6,6 @@ const { inserirMensagem, listarMensagens } = require('../controllers/mensagemCon
 const { validarMensagem } = require('../validators/mensagemValidator');
 
 router.post('/', validarMensagem, inserirMensagem);
-router.get('/', listarMensagens);
+router.get('/', authAPI, listarMensagens);
 
 module.exports = router;
