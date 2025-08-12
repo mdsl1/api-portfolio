@@ -29,5 +29,14 @@ exports.validarProjeto = [
     body('site_url')
         .optional()
         .trim()
-        .isURL().withMessage('URL do site inválida.')
+        .custom((value) => {
+        if (value.toLowerCase() === 'n/a') {
+            return true; // Aceita 'n/a' como válido
+        }
+        // Usa o próprio isURL do express-validator
+        if (!require('validator').isURL(value)) {
+            throw new Error('URL do site inválida.');
+        }
+        return true;
+    })
 ];
