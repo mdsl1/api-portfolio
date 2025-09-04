@@ -8,7 +8,7 @@ exports.validarProjeto = [
     body('tipo')
         .trim()
         .notEmpty().withMessage('O tipo é obrigatório.')
-        .isIn(['backend', 'frontend', 'logica', 'automacao', 'desktop', 'mobile']).withMessage('Tipo inválido.'),
+        .isIn(['backend', 'frontend', 'fullstack','logica', 'automacao', 'desktop', 'mobile']).withMessage('Tipo inválido.'),
     body('img')
         .optional()
         .trim()
