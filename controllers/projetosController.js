@@ -72,7 +72,7 @@ exports.inserirProjeto = async (req, res) => {
 
 exports.listarProjetos = async (req, res) => {
     try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/view_projetos_completos?select=*`, {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/view_projetos_completos?select=*&order=ordem.asc`, {
             method: 'GET',
             headers
         });

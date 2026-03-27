@@ -13,7 +13,7 @@ const headers = {
 
 exports.listarTecnologias = async (req, res) => {
     try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/tecnologias?select=*`, {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/tecnologias?select=*&order=ordem.asc`, {
             method: 'GET',
             headers
         });
