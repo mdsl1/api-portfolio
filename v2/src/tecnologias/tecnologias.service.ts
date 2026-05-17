@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateTecnologiaDto } from './dto/create-tecnologia.dto';
 import { SupabaseService } from '../supabase/supabase.service';
-import sanitizeHtml from 'sanitize-html';
+import sanitizeHtml = require('sanitize-html');
 
 @Injectable()
 export class TecnologiasService {
@@ -11,7 +11,7 @@ export class TecnologiasService {
   async create(createTecnologiaDto: CreateTecnologiaDto) {
 
     const cleanData = {
-      ...CreateTecnologiaDto,
+      ...createTecnologiaDto,
       nome: sanitizeHtml(createTecnologiaDto.nome),
       descricao: sanitizeHtml(createTecnologiaDto.descricao),
       icone_tech: sanitizeHtml(createTecnologiaDto.icone_tech)

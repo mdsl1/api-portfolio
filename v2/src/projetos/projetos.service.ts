@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateProjetoDto } from './dto/create-projeto.dto';
 import { SupabaseService } from '../supabase/supabase.service';
-import sanitizeHtml from 'sanitize-html';
+import sanitizeHtml = require('sanitize-html');
 
 @Injectable()
 export class ProjetosService {
