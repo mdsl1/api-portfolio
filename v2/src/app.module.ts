@@ -10,7 +10,7 @@ import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '../.env',
+      envFilePath: ['.env', '../.env'],
       isGlobal: true
     }),
     ThrottlerModule.forRoot([{
